@@ -20,6 +20,10 @@ const App = () => {
       />
       <TodoList
         todos={todos}
+        deleteTodo={todosIndex => {
+          const newTodos = todos.filter((_, index) => index !== todosIndex);
+          setTodos(newTodos);
+        }}
       />
     </div>
   );
