@@ -1,22 +1,29 @@
-import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
+import React, { useState } from 'react';
 import TodoForm from './TodoForm';
+import TodoList from './TodoList';
 import styles from './App.css';
 
 
-class App extends Component {
-  render() { 
-    return (
-      <div className={styles.app}>
-        <Typography
-          component='h1'
-          variant='h2'
-        >
-          Todos
-        </Typography>
-      </div>
-    );
-  }
-}
+const App = () => {
+  const [todos, setTodos] = useState([]);
+
+  return (
+    <div className={styles.app}>
+      <h1>Todos</h1>
+      <TodoForm 
+        saveTodo={todoText => {
+          const trimmedText = todoText.trim();
+          if(trimmedText.length > 0) {
+            setTodos([...todos, trimmedText]);
+          }
+        }}
+      />
+      <TodoList
+        todos={todos}
+      />
+    </div>
+  );
+};
+
  
 export default App;
