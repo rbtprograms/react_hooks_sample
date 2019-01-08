@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
+import useInputState from './useInputState';
 
 const TodoForm = ({ saveTodo }) => {
-  const [value, setValue] = useState('');
+  const [value, reset, onChange] = useInputState('');
 
   return (
     <form
       onSubmit={event => {
         event.preventDefault();
         saveTodo(value);
-        setValue('');
+        reset();
       }}
     >
       <input
-        onChange={event => {
-          setValue(event.target.value);
-        }}
+        onChange={onChange}
         value={value}
       />
     </form>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
+import useTodoState from './useTodoState';
 import styles from './App.css';
 
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, addTodo, deleteTodo] = useTodoState([]);
 
   return (
     <div className={styles.app}>
@@ -14,16 +15,13 @@ const App = () => {
         saveTodo={todoText => {
           const trimmedText = todoText.trim();
           if(trimmedText.length > 0) {
-            setTodos([...todos, trimmedText]);
+            addTodo([trimmedText]);
           }
         }}
       />
       <TodoList
         todos={todos}
-        deleteTodo={todosIndex => {
-          const newTodos = todos.filter((_, index) => index !== todosIndex);
-          setTodos(newTodos);
-        }}
+        deleteTodo={deleteTodo}
       />
     </div>
   );
